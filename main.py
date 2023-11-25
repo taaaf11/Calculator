@@ -8,6 +8,21 @@ def main(page):
     
     page.theme_mode = 'light'
     
+    def convert_to_eval_able_string(string: str):
+        eval_able_str = ''
+        for char in string:
+            if char == '÷':
+                eval_able_str += '/'
+                continue
+            elif char == 'x':
+                eval_able_str += '*'
+                continue
+            eval_able_str += char
+        
+        if eval_able_str[0] == '0':
+            eval_able_str = eval_able_str[1:]
+        return eval_able_str
+    
     def on_click_c_or_ac(e):
         entry_label.value = '0'
         page.update()
@@ -24,78 +39,106 @@ def main(page):
 
 
     def on_click_7(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '7'
         page.update()
 
 
     def on_click_8(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '8'
         page.update()
 
 
     def on_click_9(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '9'
         page.update()
 
 
     def on_click_sub(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '-'
         page.update()
 
 
     def on_click_4(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '4'
         page.update()
 
 
     def on_click_5(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '5'
         page.update()
 
 
     def on_click_6(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '6'
         page.update()
 
 
     def on_click_mul(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '*'
         page.update()
 
 
     def on_click_1(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '1'
         page.update()
 
 
     def on_click_2(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '2'
         page.update()
 
 
     def on_click_3(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '3'
         page.update()
 
 
     def on_click_div(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '/'
         page.update()
 
 
     def on_click_0(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '0'
         page.update()
 
 
     def on_click_point(e):
+        if entry_label.value == '0':
+            entry_label.value = ''
         entry_label.value += '.'
         page.update()
 
 
     def on_click_equals(e):
-        result = eval(entry_label.value.value)
-        entry_label.value = result
+        result = eval(convert_to_eval_able_string(entry_label.value))
+        entry_label.value = str(result)
         page.update()
     
     button_C = ft.ElevatedButton(text='C', on_click=on_click_c_or_ac)
