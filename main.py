@@ -5,8 +5,9 @@ def main(page):
     page.title = 'Calculator'
     page.window_width = 310
     page.window_height = 350
+    page.window_resizable = False
     
-    page.theme_mode = 'light'
+    page.theme_mode = 'dark'
     
     def convert_to_eval_able_string(string: str):
         eval_able_str = ''
@@ -60,8 +61,6 @@ def main(page):
 
 
     def on_click_sub(e):
-        if entry_label.value == '0':
-            entry_label.value = ''
         entry_label.value += '-'
         page.update()
 
@@ -88,9 +87,7 @@ def main(page):
 
 
     def on_click_mul(e):
-        if entry_label.value == '0':
-            entry_label.value = ''
-        entry_label.value += '*'
+        entry_label.value += 'x'
         page.update()
 
 
@@ -116,8 +113,6 @@ def main(page):
 
 
     def on_click_div(e):
-        if entry_label.value == '0':
-            entry_label.value = ''
         entry_label.value += '/'
         page.update()
 
@@ -140,10 +135,50 @@ def main(page):
         result = eval(convert_to_eval_able_string(entry_label.value))
         entry_label.value = str(result)
         page.update()
+        
+    def set_dark_mode():
+        page.theme_mode = 'dark'
+        for button in all_buttons:
+            if isinstance(button, ft.IconButton):
+                button.icon_color = '#ffffff'
+                button.bgcolor = '#121212'
+                continue
+            button.bgcolor = '#121212'
+            button.color = '#ffffff'
+        button_change_theme.icon = ft.icons.LIGHT_MODE_SHARP
+        page.update()
+
+    def set_light_mode():
+        page.theme_mode = 'light'
+        for button in all_buttons:
+            if isinstance(button, ft.IconButton):
+                button.icon_color = '#ffffff'
+                button.bgcolor = '#ff999999'
+                continue
+            button.bgcolor = '#ff999999'
+            button.color = '#ffffff'
+        button_change_theme.icon = ft.icons.DARK_MODE_SHARP
+        page.update()
     
+    def change_theme(e):
+        if page.theme_mode == 'light':
+            set_dark_mode()
+        elif page.theme_mode == 'dark':
+            set_light_mode()
+    
+    def delete_char(e):
+        if len(entry_label.value) == 1: # the only character in the field 
+            entry_label.value = '0'
+        else:
+            entry_label_value = list(entry_label.value)
+            entry_label.value = ''.join(entry_label_value[:-1])
+        page.update()
+    
+    
+    # ft.IconButton(ft.icons.LIGHT_MODE_SHARP, on_click=change_theme)
     button_C = ft.ElevatedButton(text='C', on_click=on_click_c_or_ac)
     button_AC = ft.ElevatedButton(text='AC', on_click=on_click_c_or_ac)
-    button_empty = ft.ElevatedButton(text=' ', on_click=on_click_empty)
+    button_delete = ft.IconButton(ft.icons.BACKSPACE, on_click=delete_char)
     button_add = ft.ElevatedButton(text='+', on_click=on_click_add)
     
     button_7 = ft.ElevatedButton(text='7', on_click=on_click_7)
@@ -163,15 +198,21 @@ def main(page):
     
     button_0 = ft.ElevatedButton(text='0', on_click=on_click_0)
     button_point = ft.ElevatedButton(text='.', on_click=on_click_point)
-    button_empty = ft.ElevatedButton(text=' ', on_click=on_click_empty)
+    button_change_theme = ft.IconButton(ft.icons.LIGHT_MODE_SHARP, on_click=change_theme)
     button_equals = ft.ElevatedButton(text='=', on_click=on_click_equals)
     
+    all_buttons = [button_C, button_AC, button_delete, button_add,
+                   button_7, button_8, button_9, button_sub,
+                   button_4, button_5, button_6, button_mul,
+                   button_1, button_2, button_3, button_div,
+                   button_0, button_point, button_change_theme, button_equals]
+    
     entry_label = ft.TextField(value='0',read_only=True)
-    row_1 = ft.Row([button_C, button_AC, button_empty, button_add])
+    row_1 = ft.Row([button_C, button_AC, button_delete, button_add])
     row_2 = ft.Row([button_7, button_8, button_9, button_sub])
     row_3 = ft.Row([button_4, button_5, button_6, button_mul])
     row_4 = ft.Row([button_1, button_2, button_3, button_div])
-    row_5 = ft.Row([button_0, button_point, button_empty, button_equals])
+    row_5 = ft.Row([button_0, button_point, button_change_theme, button_equals])
     
     view = ft.Column([
         entry_label,
@@ -181,6 +222,9 @@ def main(page):
         row_4,
         row_5
     ])
+    
+    # initial mode of the app
+    set_dark_mode()
     
     page.add(view)
 
