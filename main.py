@@ -4,6 +4,10 @@ import flet as ft
 def main(page):
     page.title = "Calculator"
 
+    page.window_width = 310
+    page.window_height = 350
+    page.window_resizable = False
+
     page.theme_mode = "dark"
 
     def convert_to_eval_able_string(string: str):
