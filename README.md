@@ -10,7 +10,7 @@ A calculator app in python written with flet framework.
 2. Navigate to the cloned directory or to the extracted directory.
 3. Open terminal in the directory.
 4. Run the following commands:
-5. `python -m venv .env`
-6. `.env\Scripts\activate.ps1` (for powershell)
-7. `python main.py`
-8. `deactivate`
+5. Creating virtual environment: `python -m venv .env`
+6. Activating it: `.env\Scripts\activate`
+7. Running: `python main.py`
+8. Deactivate the virtual environment: `deactivate`
