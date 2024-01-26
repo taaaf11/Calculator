@@ -8,9 +8,9 @@ def main(page):
     page.window_height = 350
     page.window_resizable = False
 
-    page.theme_mode = "dark"
+    page.theme_mode = ft.ThemeMode.DARK
 
-    def convert_to_eval_able_string(string: str):
+    def textfield_to_eval_able_string(string: str):
         eval_able_str = ""
         for char in string:
             if char == "÷":
@@ -112,14 +112,14 @@ def main(page):
         page.update()
 
     def on_click_equals(e):
-        result = eval(convert_to_eval_able_string(entry_label.value))
+        result = eval(textfield_to_eval_able_string(entry_label.value))
         entry_label.value = str(result)
         page.update()
 
     def set_dark_mode():
-        page.theme_mode = "dark"
+        page.theme_mode = ft.ThemeMode.DARK
         for button in all_buttons:
-            if isinstance(button, ft.IconButton):  # "delete" button: button_delete
+            if isinstance(button, ft.IconButton):
                 button.icon_color = "#ffffff"
                 button.bgcolor = "#191b1e"
                 continue
@@ -129,7 +129,7 @@ def main(page):
         page.update()
 
     def set_light_mode():
-        page.theme_mode = "light"
+        page.theme_mode = ft.ThemeMode.LIGHT
         for button in all_buttons:
             if isinstance(button, ft.IconButton):
                 button.icon_color = "#ffffff"
@@ -141,9 +141,9 @@ def main(page):
         page.update()
 
     def change_theme(e):
-        if page.theme_mode == "light":
+        if page.theme_mode == ft.ThemeMode.LIGHT:
             set_dark_mode()
-        elif page.theme_mode == "dark":
+        elif page.theme_mode == ft.ThemeMode.DARK:
             set_light_mode()
 
     def delete_char(e):
@@ -154,7 +154,6 @@ def main(page):
             entry_label.value = "".join(entry_label_value[:-1])
         page.update()
 
-    # ft.IconButton(ft.icons.LIGHT_MODE_SHARP, on_click=change_theme)
     button_C = ft.ElevatedButton(text="C", on_click=on_click_c_or_ac)
     button_AC = ft.ElevatedButton(text="AC", on_click=on_click_c_or_ac)
     button_delete = ft.IconButton(ft.icons.BACKSPACE, on_click=delete_char)
