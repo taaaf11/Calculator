@@ -1,6 +1,10 @@
 # Calculator
 A calculator app in python written with flet framework.
 
+## Screenshot
+![image](https://github.com/taaaf11/Calculator/assets/109919009/2e353d9a-cff5-4dfd-bc2c-3c9e6a5707b3)
+
+
 ## Run it!
 1. Clone the repo or download zip.
 2. Navigate to the cloned directory or to the extracted directory.
